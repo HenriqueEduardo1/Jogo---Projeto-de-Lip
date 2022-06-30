@@ -16,7 +16,7 @@ def run_game():
     todas_as_sprites = pygame.sprite.Group()
     sprite_fundo = pygame.sprite.Group()
 
-    bat = Morcego(screen)
+    bat = Morcego(ai_settings, screen)
     todas_as_sprites.add(bat)
 
     for i in range(2):
@@ -24,7 +24,8 @@ def run_game():
         sprite_fundo.add(fundo)
 
     while True:
-        gf.check_events()
+        gf.check_events(bat)
+        bat.update_position()
         gf.update_screen(ai_settings, screen, sprite_fundo, todas_as_sprites)
 
 run_game()

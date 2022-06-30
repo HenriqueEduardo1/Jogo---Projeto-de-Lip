@@ -2,12 +2,32 @@ import sys
 import pygame
 from fundo import Fundo
 
-def check_events():
+def check_events(bat):
     """Responde a eventos de pressionamento de teclas e de mouse."""
 
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
             sys.exit()
+
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                bat.moving_up = True
+            elif event.key == pygame.K_DOWN:
+                bat.moving_down = True
+            elif event.key == pygame.K_LEFT:
+                bat.moving_left = True
+            elif event.key == pygame.K_RIGHT:
+                bat.moving_right = True
+
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_UP:
+                bat.moving_up = False
+            elif event.key == pygame.K_DOWN:
+                bat.moving_down = False
+            elif event.key == pygame.K_LEFT:
+                bat.moving_left = False
+            elif event.key == pygame.K_RIGHT:
+                bat.moving_right = False 
 
 def update_screen(ai_s, screen, fundo, sprites):
     """Atualiza as imagens na tela e alterna para a nova tela."""
