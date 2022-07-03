@@ -8,11 +8,10 @@ sprite_bat = pygame.image.load(os.path.join(diretorio_img, 'morcego.png'))
 
 class Morcego(pygame.sprite.Sprite):
 
-    def __init__(self, ai_s, screen):
+    def __init__(self, ai_s):
         pygame.sprite.Sprite.__init__(self)
 
         self.imgs_bat = []
-        self.screen = screen
         self.ai_s = ai_s
 
         self.moving_right = False
