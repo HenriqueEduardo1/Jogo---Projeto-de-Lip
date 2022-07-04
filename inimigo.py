@@ -8,6 +8,7 @@ diretorio_img = os.path.join(diretorio_principal, 'img')
 sprite_inimigo = pygame.image.load(os.path.join(diretorio_img, 'inimigo.png'))
 
 class Inimigo(pygame.sprite.Sprite):
+    '''classe para representar os inimigos e seus movimentos na tela'''
 
     def __init__(self, ai_s):
         pygame.sprite.Sprite.__init__(self)
@@ -24,8 +25,6 @@ class Inimigo(pygame.sprite.Sprite):
         self.image = self.imgs_inimigo[self.id_list]
         self.rect = self.image.get_rect()
 
-        self.mask = pygame.mask.from_surface(self.image)
-
         self.rect.x = randrange(self.ai_s.screen_w, self.ai_s.screen_w * 2, 95)
         self.rect.y = randrange(5, self.ai_s.screen_h - 70, 70)
     
@@ -35,6 +34,7 @@ class Inimigo(pygame.sprite.Sprite):
 
         self.id_list += 0.15
         self.image = self.imgs_inimigo[int(self.id_list)]
+        self.mask = pygame.mask.from_surface(self.image)
 
         if self.rect.topright[0] < 0:
             self.rect.x = randrange(self.ai_s.screen_w, self.ai_s.screen_w * 2, 95)

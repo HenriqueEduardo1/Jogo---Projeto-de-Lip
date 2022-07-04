@@ -7,6 +7,7 @@ diretorio_img = os.path.join(diretorio_principal, 'img')
 sprite_bat = pygame.image.load(os.path.join(diretorio_img, 'morcego.png'))
 
 class Morcego(pygame.sprite.Sprite):
+    '''Classe para representar o morcego e seu movimento na tela'''
 
     def __init__(self, ai_s):
         pygame.sprite.Sprite.__init__(self)
@@ -27,9 +28,6 @@ class Morcego(pygame.sprite.Sprite):
         self.id_list = 0
         self.image = self.imgs_bat[self.id_list]
         self.rect = self.image.get_rect()
-
-        self.mask = pygame.mask.from_surface(self.image)
-
         self.rect.center = (200,150)
     
     def update(self):
@@ -38,6 +36,7 @@ class Morcego(pygame.sprite.Sprite):
 
         self.id_list += 0.15
         self.image = self.imgs_bat[int(self.id_list)]
+        self.mask = pygame.mask.from_surface(self.image)
     
     def update_position(self):
         if self.moving_right:

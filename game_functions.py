@@ -3,7 +3,7 @@ import pygame
 from fundo import Fundo
 
 def check_events(bat):
-    """Responde a eventos de pressionamento de teclas e de mouse."""
+    """Responde a eventos de pressionamento de teclas"""
 
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT:
@@ -30,7 +30,8 @@ def check_events(bat):
                 bat.moving_right = False 
 
 def update_screen(ai_s, screen, fundo, sprites, inimigos, bat):
-    """Atualiza as imagens na tela e alterna para a nova tela."""
+    """Atualiza as imagens na tela"""
+    
     if sprite_fora_da_tela(fundo.sprites()[0]):
         fundo.remove(fundo.sprites()[0])
         novo_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w)
@@ -40,6 +41,7 @@ def update_screen(ai_s, screen, fundo, sprites, inimigos, bat):
     sprites.draw(screen)
     inimigos.draw(screen)
 
+    #Testa a colisão com os inimigos
     colisao = pygame.sprite.spritecollide(bat, inimigos, False, pygame.sprite.collide_mask)
 
     if colisao:
