@@ -10,4 +10,4 @@ class Settings():
         self.speed_inimigo = 5
 
         #Quantidade de inimigos
-        self.quant_inimigos = 5
+        self.quant_inimigos = 2

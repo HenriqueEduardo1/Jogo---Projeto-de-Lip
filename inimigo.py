@@ -23,6 +23,9 @@ class Inimigo(pygame.sprite.Sprite):
         self.id_list = 0
         self.image = self.imgs_inimigo[self.id_list]
         self.rect = self.image.get_rect()
+
+        self.mask = pygame.mask.from_surface(self.image)
+
         self.rect.x = randrange(self.ai_s.screen_w, self.ai_s.screen_w * 2, 95)
         self.rect.y = randrange(5, self.ai_s.screen_h - 70, 70)
     

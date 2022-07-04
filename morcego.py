@@ -27,6 +27,9 @@ class Morcego(pygame.sprite.Sprite):
         self.id_list = 0
         self.image = self.imgs_bat[self.id_list]
         self.rect = self.image.get_rect()
+
+        self.mask = pygame.mask.from_surface(self.image)
+
         self.rect.center = (200,150)
     
     def update(self):

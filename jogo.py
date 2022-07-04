@@ -33,6 +33,6 @@ def run_game():
     while True:
         gf.check_events(bat)
         bat.update_position()
-        gf.update_screen(ai_settings, screen, sprite_fundo, todas_as_sprites, sprites_inimigos)
+        gf.update_screen(ai_settings, screen, sprite_fundo, todas_as_sprites, sprites_inimigos, bat)
 
 run_game()
