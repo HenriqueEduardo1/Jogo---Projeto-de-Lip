@@ -16,13 +16,15 @@ def run_game():
 
     todas_as_sprites = pygame.sprite.Group()
     sprite_fundo = pygame.sprite.Group()
-    sprites_inimigo = pygame.sprite.Group()
+    sprites_inimigos = pygame.sprite.Group()
 
     bat = Morcego(ai_settings)
-    inimigo = Inimigo(ai_settings)
 
     todas_as_sprites.add(bat)
-    sprites_inimigo.add(inimigo)
+    
+    for i in range(ai_settings.quant_inimigos):
+        inimigo = Inimigo(ai_settings)
+        sprites_inimigos.add(inimigo)
 
     for i in range(2):
         fundo = Fundo(ai_settings.screen_w, ai_settings.screen_h, ai_settings.screen_w * i)
@@ -31,6 +33,6 @@ def run_game():
     while True:
         gf.check_events(bat)
         bat.update_position()
-        gf.update_screen(ai_settings, screen, sprite_fundo, todas_as_sprites, sprites_inimigo)
+        gf.update_screen(ai_settings, screen, sprite_fundo, todas_as_sprites, sprites_inimigos)
 
 run_game()

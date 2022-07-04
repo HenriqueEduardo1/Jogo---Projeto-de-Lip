@@ -1,3 +1,4 @@
+from random import randrange
 import pygame
 import os
 
@@ -22,7 +23,8 @@ class Inimigo(pygame.sprite.Sprite):
         self.id_list = 0
         self.image = self.imgs_inimigo[self.id_list]
         self.rect = self.image.get_rect()
-        self.rect.center = (350,150)
+        self.rect.x = randrange(self.ai_s.screen_w, self.ai_s.screen_w * 2, 95)
+        self.rect.y = randrange(5, self.ai_s.screen_h - 70, 70)
     
     def update(self):
         if self.id_list > 3:
@@ -30,3 +32,9 @@ class Inimigo(pygame.sprite.Sprite):
 
         self.id_list += 0.15
         self.image = self.imgs_inimigo[int(self.id_list)]
+
+        if self.rect.topright[0] < 0:
+            self.rect.x = randrange(self.ai_s.screen_w, self.ai_s.screen_w * 2, 95)
+            self.rect.y = randrange(5, self.ai_s.screen_h - 70, 70) 
+        
+        self.rect.x -= self.ai_s.speed_inimigo
