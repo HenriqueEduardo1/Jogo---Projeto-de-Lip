@@ -5,9 +5,11 @@ class Settings():
         self.screen_w = 640
         self.screen_h = 480
 
-        #Velocidade do morcego e do(os) inimigos
+        #Velocidade do morcego, do inseto e do inimigo
         self.speed_bat = 2
         self.speed_inimigo = 5
+        self.speed_inseto = 3
 
-        #Quantidade de inimigos
-        self.quant_inimigos = 2
+        #Quantidade de inimigos e de insetos
+        self.quant_inimigos = 3
+        self.quant_insetos = 4

@@ -29,7 +29,7 @@ def check_events(bat):
             elif event.key == pygame.K_RIGHT:
                 bat.moving_right = False 
 
-def update_screen(ai_s, screen, fundo, sprites, inimigos, bat):
+def update_screen(ai_s, screen, fundo, sprites, inimigos, insetos, bat):
     """Atualiza as imagens na tela"""
     
     if sprite_fora_da_tela(fundo.sprites()[0]):
@@ -40,6 +40,7 @@ def update_screen(ai_s, screen, fundo, sprites, inimigos, bat):
     fundo.draw(screen)
     sprites.draw(screen)
     inimigos.draw(screen)
+    insetos.draw(screen)
 
     #Testa a colisão com os inimigos
     colisao = pygame.sprite.spritecollide(bat, inimigos, False, pygame.sprite.collide_mask)
@@ -50,6 +51,7 @@ def update_screen(ai_s, screen, fundo, sprites, inimigos, bat):
         sprites.update()
         fundo.update()
         inimigos.update()
+        insetos.update()
 
     pygame.display.flip()
 

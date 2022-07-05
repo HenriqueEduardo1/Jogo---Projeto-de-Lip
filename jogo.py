@@ -4,6 +4,7 @@ from pygame.locals import *
 from settings import Settings
 from morcego import Morcego
 from inimigo import Inimigo
+from inseto import Inseto
 from fundo import Fundo
 import game_functions as gf
 
@@ -17,6 +18,7 @@ def run_game():
     sprites_bat = pygame.sprite.Group()
     sprite_fundo = pygame.sprite.Group()
     sprites_inimigos = pygame.sprite.Group()
+    sprites_insetos = pygame.sprite.Group()
 
     bat = Morcego(ai_settings)
 
@@ -26,6 +28,10 @@ def run_game():
         inimigo = Inimigo(ai_settings)
         sprites_inimigos.add(inimigo)
 
+    for i in range(ai_settings.quant_insetos):
+        inseto = Inseto(ai_settings)
+        sprites_insetos.add(inseto)
+
     for i in range(2):
         fundo = Fundo(ai_settings.screen_w, ai_settings.screen_h, ai_settings.screen_w * i)
         sprite_fundo.add(fundo)
@@ -33,6 +39,6 @@ def run_game():
     while True:
         gf.check_events(bat)
         bat.update_position()
-        gf.update_screen(ai_settings, screen, sprite_fundo, sprites_bat, sprites_inimigos, bat)
+        gf.update_screen(ai_settings, screen, sprite_fundo, sprites_bat, sprites_inimigos, sprites_insetos, bat)
 
 run_game()
