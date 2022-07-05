@@ -12,4 +12,4 @@ class Settings():
 
         #Quantidade de inimigos e de insetos
         self.quant_inimigos = 3
-        self.quant_insetos = 4
+        self.quant_insetos = 3
