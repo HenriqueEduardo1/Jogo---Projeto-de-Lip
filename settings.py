@@ -7,9 +7,12 @@ class Settings():
 
         #Velocidade do morcego, do inseto e do inimigo
         self.speed_bat = 2
-        self.speed_inimigo = 5
-        self.speed_inseto = 3
+        self.speed_inimigo = 4
+        self.speed_inseto = 2
+        self.speed_fundo = 1
 
         #Quantidade de inimigos e de insetos
-        self.quant_inimigos = 3
+        self.quant_inimigos = 2
         self.quant_insetos = 3
+
+        self.pontos = 0

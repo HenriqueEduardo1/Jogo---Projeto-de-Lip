@@ -10,13 +10,13 @@ def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat):
     
     if sprite_fora_da_tela(fundo.sprites()[0]):
         fundo.remove(fundo.sprites()[0])
-        novo_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w)
-        fundo.add(novo_fundo)
+        new_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w, ai_s)
+        fundo.add(new_fundo)
 
     draw_jogo(morcego, fundo, inimigos, insetos, screen)
 
     check_colisao_inimigo(bat, morcego, fundo, inimigos, insetos)
-    check_colisao_inseto(ai_s, bat, insetos)
+    check_colisao_inseto(ai_s, bat, insetos, inimigos)
 
     pygame.display.flip()
 
@@ -49,12 +49,34 @@ def check_events(bat):
                 bat.moving_right = False 
 
 
-def check_colisao_inseto(ai_s, bat, insetos):
+def check_colisao_inseto(ai_s, bat, insetos, inimigos):
     #Testa a colisão com os insetos
     colisao_inseto = pygame.sprite.spritecollide(bat, insetos, True, pygame.sprite.collide_mask)
 
     if colisao_inseto:
-        print("comeu inseto")
+        ai_s.pontos += 1
+        print(ai_s.pontos)
+        
+        if ai_s.pontos % 30 == 0:
+            if ai_s.speed_inimigo == 8:
+                ai_s.speed_inimigo += 0
+                ai_s.speed_fundo += 0
+                ai_s.speed_inseto += 0
+                ai_s.speed_bat += 0
+            else:
+                ai_s.speed_inimigo += 1
+                ai_s.speed_fundo += 1
+                ai_s.speed_inseto += 1
+                ai_s.speed_bat += 0.5
+
+        if ai_s.pontos % 30 == 0:
+            if ai_s.quant_inimigos == 4:
+                ai_s.quant_inimigos += 0
+                ai_s.quant_insetos += 0
+            else:
+                ai_s.quant_inimigos += 1
+                ai_s.quant_insetos += 1
+                create_inimigos(ai_s, inimigos)
 
     if len(insetos) == 0:
         create_insetos(ai_s, insetos)
@@ -81,14 +103,14 @@ def create_insetos(ai_s, insetos):
 
 
 def create_inimigos(ai_s, inimigos):
-    for i in range(ai_s.quant_inimigos):
+    while len(inimigos) < ai_s.quant_inimigos:
         new_inimigo = Inimigo(ai_s)
         inimigos.add(new_inimigo)
 
 
 def create_fundo(ai_s, fundo):
     for i in range(2):
-        new_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w * i)
+        new_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w * i, ai_s)
         fundo.add(new_fundo)
 
 
