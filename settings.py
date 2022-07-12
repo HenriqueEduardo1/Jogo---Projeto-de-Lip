@@ -15,4 +15,5 @@ class Settings():
         self.quant_inimigos = 2
         self.quant_insetos = 3
 
+        #Pontuação do jogador
         self.pontos = 0
