@@ -5,17 +5,17 @@ from inseto import Inseto
 from inimigo import Inimigo
 
 
-def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat):
+def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat, play):
     """Atualiza as imagens na tela"""
     
     update_fundo(ai_s, fundo)
     
-    draw_jogo(morcego, fundo, inimigos, insetos, screen)
+    draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play)
 
-    check_colisao_inimigo(bat, morcego, fundo, inimigos, insetos)
+    check_colisao_inimigo(ai_s, bat, morcego, fundo, inimigos, insetos)
     check_colisao_inseto(ai_s, bat, insetos, inimigos)
 
-    update_jogo(morcego, fundo, inimigos, insetos)
+    update_jogo(ai_s, morcego, fundo, inimigos, insetos)
 
     pygame.display.flip()
 
@@ -80,12 +80,13 @@ def check_colisao_inseto(ai_s, bat, insetos, inimigos):
         create_insetos(ai_s, insetos)
 
 
-def check_colisao_inimigo(bat, morcego, fundo, inimigos, insetos):
+def check_colisao_inimigo(ai_s, bat, morcego, fundo, inimigos, insetos):
     #Testa a colisão com os inimigos
     colisao_inimigo = pygame.sprite.spritecollide(bat, inimigos, False, pygame.sprite.collide_mask)
 
     if colisao_inimigo:
-        sys.exit()
+        ai_s.game_on = False
+        
 
 
 def sprite_fora_da_tela(sprite):
@@ -110,15 +111,19 @@ def create_fundo(ai_s, fundo):
         fundo.add(new_fundo)
 
 
-def update_jogo(morcego, fundo, inimigos, insetos):
-    morcego.update()
-    fundo.update()
-    inimigos.update()
-    insetos.update()
+def update_jogo(ai_s, morcego, fundo, inimigos, insetos):
+    if ai_s.game_on:
+        morcego.update()
+        fundo.update()
+        inimigos.update()
+        insetos.update()
 
 
-def draw_jogo(morcego, fundo, inimigos, insetos, screen):
+def draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play):
     fundo.draw(screen)
     morcego.draw(screen)
     inimigos.draw(screen)
     insetos.draw(screen)
+
+    if not ai_s.game_on:
+        play.draw_button()

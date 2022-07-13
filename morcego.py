@@ -28,7 +28,7 @@ class Morcego(pygame.sprite.Sprite):
         self.id_list = 0
         self.image = self.imgs_bat[self.id_list]
         self.rect = self.image.get_rect()
-        self.rect.center = (200,150)
+        self.rect.center = (150, ai_s.screen_h / 2)
     
     def update(self):
         if self.id_list > 4:

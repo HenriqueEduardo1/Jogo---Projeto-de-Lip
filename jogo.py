@@ -5,6 +5,7 @@ from pygame.locals import *
 from settings import Settings
 from morcego import Morcego
 import game_functions as gf
+from button import Button
 
 
 def run_game():
@@ -25,9 +26,14 @@ def run_game():
     gf.create_inimigos(ai_settings, inimigos)
     gf.create_fundo(ai_settings, fundo)
 
+    play = Button(ai_settings, screen, "Play")
+
     while True:
         gf.check_events(bat)
-        bat.update_position()
-        gf.update_screen(ai_settings, screen, fundo, morcego, inimigos, insetos, bat)
+        
+        if ai_settings.game_on:
+            bat.update_position()
+
+        gf.update_screen(ai_settings, screen, fundo, morcego, inimigos, insetos, bat, play)
 
 run_game()

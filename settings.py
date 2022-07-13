@@ -17,3 +17,5 @@ class Settings():
 
         #Pontuação do jogador
         self.pontos = 0
+
+        self.game_on = False
