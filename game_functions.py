@@ -115,7 +115,7 @@ def update_jogo(morcego, fundo, inimigos, insetos):
     fundo.update()
     inimigos.update()
     insetos.update()
-    
+
 
 def draw_jogo(morcego, fundo, inimigos, insetos, screen):
     fundo.draw(screen)
