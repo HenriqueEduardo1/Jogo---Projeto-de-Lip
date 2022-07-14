@@ -29,7 +29,7 @@ def run_game():
     play = Button(ai_settings, screen, "Play")
 
     while True:
-        gf.check_events(bat)
+        gf.check_events(ai_settings, bat, play)
         
         if ai_settings.game_on:
             bat.update_position()

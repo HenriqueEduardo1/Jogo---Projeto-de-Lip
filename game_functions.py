@@ -26,7 +26,7 @@ def update_fundo(ai_s, fundo):
         new_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w, ai_s)
         fundo.add(new_fundo)
 
-def check_events(bat):
+def check_events(ai_s, bat, play):
     """Responde a eventos de pressionamento de teclas"""
 
     for event in pygame.event.get(): 
@@ -51,7 +51,19 @@ def check_events(bat):
             elif event.key == pygame.K_LEFT:
                 bat.moving_left = False
             elif event.key == pygame.K_RIGHT:
-                bat.moving_right = False 
+                bat.moving_right = False
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x, mouse_y = pygame.mouse.get_pos()
+            check_play_button(ai_s, play, mouse_x, mouse_y)
+
+
+def check_play_button(ai_s, play, mouse_x, mouse_y):
+    """Inicia o jogo quando o jogador clicar em Play."""
+    button_clicked = play.rect.collidepoint(mouse_x, mouse_y)
+    if button_clicked and not ai_s.game_on:
+        ai_s.game_on = True
+
 
 
 def check_colisao_inseto(ai_s, bat, insetos, inimigos):
