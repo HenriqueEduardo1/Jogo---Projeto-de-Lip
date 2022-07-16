@@ -5,15 +5,15 @@ from inseto import Inseto
 from inimigo import Inimigo
 
 
-def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat, play, play_g):
+def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat, play, play_g, pont):
     """Atualiza as imagens na tela"""
     
     update_fundo(ai_s, fundo)
     
-    draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play, play_g)
+    draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play, play_g, pont)
 
     check_colisao_inimigo(ai_s, bat, morcego, fundo, inimigos, insetos, play_g)
-    #check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g)
+    check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont)
 
     update_jogo(ai_s, morcego, fundo, inimigos, insetos, play_g)
 
@@ -26,7 +26,7 @@ def update_fundo(ai_s, fundo):
         new_fundo = Fundo(ai_s.screen_w, ai_s.screen_h, ai_s.screen_w, ai_s)
         fundo.add(new_fundo)
 
-def check_events(ai_s, bat, inimigos, insetos, play, play_g):
+def check_events(ai_s, bat, inimigos, insetos, play, play_g, pont):
     """Responde a eventos de pressionamento de teclas"""
 
     for event in pygame.event.get(): 
@@ -55,15 +55,15 @@ def check_events(ai_s, bat, inimigos, insetos, play, play_g):
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, bat)
+            check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, bat, pont)
 
 
-def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, bat):
+def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, bat, pont):
     """Inicia o jogo quando o jogador clicar em Play."""
     button_clicked = play.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not play_g.game_on:
         ai_s.inicializar_config()
-        #pygame.mouse.set_visible(False)
+        pygame.mouse.set_visible(False)
 
         play_g.reset_pontos()
         play_g.game_on = True
@@ -71,27 +71,26 @@ def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, b
         inimigos.empty()
         insetos.empty()
 
+        pont.prep_ponto()
+
         create_inimigos(ai_s, inimigos)
         create_insetos(ai_s, insetos)
         bat.alinha_bat(ai_s)
 
 
-
-
-
-def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g):
+def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont):
     #Testa a colisão com os insetos
     colisao_inseto = pygame.sprite.spritecollide(bat, insetos, True, pygame.sprite.collide_mask)
 
     if colisao_inseto:
-        ai_s.pontos += 1
-        print(ai_s.pontos)
+        play_g.pontos += ai_s.ponto_inseto
+        pont.prep_ponto()
         
-        if ai_s.pontos % 30 == 0:
+        if play_g.pontos % 30 == 0:
             if ai_s.speed_inimigo < 8:
                 ai_s.incremento_velociade()
                 
-        if ai_s.pontos % 50 == 0:
+        if play_g.pontos % 50 == 0:
             if ai_s.quant_inimigos < 4:
                 ai_s.incremento_ini_ins()
                 create_inimigos(ai_s, inimigos)
@@ -107,6 +106,7 @@ def check_colisao_inimigo(ai_s, bat, morcego, fundo, inimigos, insetos, play_g):
 
     if colisao_inimigo:
         play_g.game_on = False
+        pygame.mouse.set_visible(True)
         
 
 
@@ -140,11 +140,12 @@ def update_jogo(ai_s, morcego, fundo, inimigos, insetos, play_g):
         insetos.update()
 
 
-def draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play, play_g):
+def draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play, play_g, pont):
     fundo.draw(screen)
     morcego.draw(screen)
     inimigos.draw(screen)
     insetos.draw(screen)
+    pont.exibe_pontos()
 
     if not play_g.game_on:
         play.draw_button()

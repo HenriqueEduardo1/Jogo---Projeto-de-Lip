@@ -11,6 +11,9 @@ class Settings():
         #incremendo do inseto e do inimigo
         self.incre_ini_ins = 1
 
+        #ponto para cada inseto pego
+        self.ponto_inseto = 10
+
         self.inicializar_config()
 
     def inicializar_config(self):
