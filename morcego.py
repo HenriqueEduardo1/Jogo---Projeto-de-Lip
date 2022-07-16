@@ -28,7 +28,7 @@ class Morcego(pygame.sprite.Sprite):
         self.id_list = 0
         self.image = self.imgs_bat[self.id_list]
         self.rect = self.image.get_rect()
-        self.rect.center = (200,150)
+        self.rect.center = (150, ai_s.screen_h / 2)
     
     def update(self):
         if self.id_list > 4:
@@ -39,11 +39,11 @@ class Morcego(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
     
     def update_position(self):
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.ai_s.screen_w:
             self.rect.centerx += self.ai_s.speed_bat
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.rect.centerx -= self.ai_s.speed_bat
-        if self.moving_up:
+        if self.moving_up and self.rect.top > 0:
             self.rect.centery -= self.ai_s.speed_bat
-        if self.moving_down:
+        if self.moving_down and self.rect.bottom < self.ai_s.screen_h:
             self.rect.centery += self.ai_s.speed_bat
