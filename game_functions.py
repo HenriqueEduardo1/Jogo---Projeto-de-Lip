@@ -76,15 +76,11 @@ def check_colisao_inseto(ai_s, bat, insetos, inimigos):
         
         if ai_s.pontos % 30 == 0:
             if ai_s.speed_inimigo < 8:
-                ai_s.speed_inimigo += 1
-                ai_s.speed_fundo += 1
-                ai_s.speed_inseto += 1
-                ai_s.speed_bat += 0.5
+                ai_s.incremento_velociade()
                 
         if ai_s.pontos % 50 == 0:
             if ai_s.quant_inimigos < 4:
-                ai_s.quant_inimigos += 1
-                ai_s.quant_insetos += 1
+                ai_s.incremento_ini_ins()
                 create_inimigos(ai_s, inimigos)
                 
 
