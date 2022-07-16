@@ -30,6 +30,9 @@ class Morcego(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (150, ai_s.screen_h / 2)
     
+    def alinha_bat(self, ai_s):
+        self.rect.center = (150, ai_s.screen_h / 2)
+    
     def update(self):
         if self.id_list > 4:
             self.id_list = 0

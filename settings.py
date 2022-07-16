@@ -24,12 +24,6 @@ class Settings():
         self.quant_inimigos = 2
         self.quant_insetos = 3
 
-        #Pontuação do jogador
-        self.pontos = 0
-
-        #estado do jogo
-        self.game_on = False
-
     def incremento_velociade(self):
         self.speed_bat += self.incre_speed
         self.speed_inimigo += self.incre_speed
