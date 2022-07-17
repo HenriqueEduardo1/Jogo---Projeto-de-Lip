@@ -8,6 +8,7 @@ import game_functions as gf
 from button import Button
 from playGame import PlayGame
 from pontuacao import Pontuacao
+from record import Record
 
 
 def run_game():
@@ -28,8 +29,9 @@ def run_game():
     gf.create_inimigos(ai_settings, inimigos)
     gf.create_fundo(ai_settings, fundo)
 
+    record = Record()
     play = Button(ai_settings, screen, "Play")
-    play_game = PlayGame(ai_settings)
+    play_game = PlayGame(ai_settings, record)
     pont = Pontuacao(ai_settings, screen, play_game)
 
     while True:
@@ -38,6 +40,6 @@ def run_game():
         if play_game.game_on:
             bat.update_position()
 
-        gf.update_screen(ai_settings, screen, fundo, morcego, inimigos, insetos, bat, play, play_game, pont)
+        gf.update_screen(ai_settings, screen, fundo, morcego, inimigos, insetos, bat, play, play_game, pont, record)
 
 run_game()
