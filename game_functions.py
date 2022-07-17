@@ -72,10 +72,18 @@ def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, b
         insetos.empty()
 
         pont.prep_ponto()
+        pont.prep_max_pontuacao(ai_s)
 
         create_inimigos(ai_s, inimigos)
         create_insetos(ai_s, insetos)
         bat.alinha_bat(ai_s)
+
+
+def check_max_pontuacao(play_g, pont, ai_s):
+    """Check to see if there's a new high score."""
+    if play_g.pontos > play_g.max_pontuacao:
+        play_g.max_pontuacao = play_g.pontos
+        pont.prep_max_pontuacao(ai_s)
 
 
 def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont):
@@ -85,6 +93,8 @@ def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont):
     if colisao_inseto:
         play_g.pontos += ai_s.ponto_inseto
         pont.prep_ponto()
+        check_max_pontuacao(play_g, pont, ai_s)
+
         
         if play_g.pontos % 30 == 0:
             if ai_s.speed_inimigo < 8:
