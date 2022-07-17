@@ -62,6 +62,7 @@ def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, b
     """Inicia o jogo quando o jogador clicar em Play."""
     button_clicked = play.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not play_g.game_on:
+        ai_s.play_select.play()
         ai_s.inicializar_config()
         pygame.mouse.set_visible(False)
 
@@ -92,6 +93,7 @@ def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont, record):
     colisao_inseto = pygame.sprite.spritecollide(bat, insetos, True, pygame.sprite.collide_mask)
 
     if colisao_inseto:
+        ai_s.play_collect.play()
         play_g.pontos += ai_s.ponto_inseto
         pont.prep_ponto()
         check_max_pontuacao(play_g, pont, ai_s, record)
@@ -116,6 +118,9 @@ def check_colisao_inimigo(ai_s, bat, morcego, fundo, inimigos, insetos, play_g):
     colisao_inimigo = pygame.sprite.spritecollide(bat, inimigos, False, pygame.sprite.collide_mask)
 
     if colisao_inimigo:
+        if play_g.game_on:
+            ai_s.play_collided.play()
+            
         play_g.game_on = False
         pygame.mouse.set_visible(True)
         
