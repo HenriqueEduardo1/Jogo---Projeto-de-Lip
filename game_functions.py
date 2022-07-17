@@ -5,7 +5,7 @@ from inseto import Inseto
 from inimigo import Inimigo
 
 
-def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat, play, play_g, pont):
+def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat, play, play_g, pont, record):
     """Atualiza as imagens na tela"""
     
     update_fundo(ai_s, fundo)
@@ -13,7 +13,7 @@ def update_screen(ai_s, screen, fundo, morcego, inimigos, insetos, bat, play, pl
     draw_jogo(ai_s, morcego, fundo, inimigos, insetos, screen, play, play_g, pont)
 
     check_colisao_inimigo(ai_s, bat, morcego, fundo, inimigos, insetos, play_g)
-    check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont)
+    check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont, record)
 
     update_jogo(ai_s, morcego, fundo, inimigos, insetos, play_g)
 
@@ -79,21 +79,22 @@ def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, b
         bat.alinha_bat(ai_s)
 
 
-def check_max_pontuacao(play_g, pont, ai_s):
+def check_max_pontuacao(play_g, pont, ai_s, record):
     """Check to see if there's a new high score."""
     if play_g.pontos > play_g.max_pontuacao:
         play_g.max_pontuacao = play_g.pontos
+        record.set_record_atual(play_g.pontos)
         pont.prep_max_pontuacao(ai_s)
 
 
-def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont):
+def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont, record):
     #Testa a colisão com os insetos
     colisao_inseto = pygame.sprite.spritecollide(bat, insetos, True, pygame.sprite.collide_mask)
 
     if colisao_inseto:
         play_g.pontos += ai_s.ponto_inseto
         pont.prep_ponto()
-        check_max_pontuacao(play_g, pont, ai_s)
+        check_max_pontuacao(play_g, pont, ai_s, record)
 
         
         if play_g.pontos % 30 == 0:
