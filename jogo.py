@@ -6,6 +6,8 @@ from settings import Settings
 from morcego import Morcego
 import game_functions as gf
 from button import Button
+from playGame import PlayGame
+from pontuacao import Pontuacao
 
 
 def run_game():
@@ -27,13 +29,15 @@ def run_game():
     gf.create_fundo(ai_settings, fundo)
 
     play = Button(ai_settings, screen, "Play")
+    play_game = PlayGame(ai_settings)
+    pont = Pontuacao(ai_settings, screen, play_game)
 
     while True:
-        gf.check_events(ai_settings, bat, play)
+        gf.check_events(ai_settings, bat, inimigos, insetos, play, play_game, pont)
         
-        if ai_settings.game_on:
+        if play_game.game_on:
             bat.update_position()
 
-        gf.update_screen(ai_settings, screen, fundo, morcego, inimigos, insetos, bat, play)
+        gf.update_screen(ai_settings, screen, fundo, morcego, inimigos, insetos, bat, play, play_game, pont)
 
 run_game()
