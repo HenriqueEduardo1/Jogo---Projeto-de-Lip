@@ -81,7 +81,6 @@ def check_play_button(ai_s, inimigos, insetos, play, mouse_x, mouse_y, play_g, b
 
 
 def check_max_pontuacao(play_g, pont, ai_s, record):
-    """Check to see if there's a new high score."""
     if play_g.pontos > play_g.max_pontuacao:
         play_g.max_pontuacao = play_g.pontos
         record.set_record_atual(play_g.pontos)
