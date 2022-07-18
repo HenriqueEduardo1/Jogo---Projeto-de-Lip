@@ -1,3 +1,5 @@
+import pygame
+
 class Settings():
     """Uma classe para armazenar todas as configurações de El Morcegón"""
     def __init__(self):
@@ -12,7 +14,12 @@ class Settings():
         self.incre_ini_ins = 1
 
         #ponto para cada inseto pego
-        self.ponto_inseto = 10
+        self.ponto_inseto = 1
+
+        #carrega os sons do jogo
+        self.play_select = pygame.mixer.Sound('sounds/select.wav')
+        self.play_collect = pygame.mixer.Sound('sounds/collect.wav')
+        self.play_collided = pygame.mixer.Sound('sounds/collided.wav')
 
         self.inicializar_config()
 

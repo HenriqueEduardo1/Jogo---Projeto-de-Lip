@@ -17,6 +17,9 @@ def run_game():
     screen = pygame.display.set_mode((ai_settings.screen_w, ai_settings.screen_h))
     pygame.display.set_caption("El Morcegón")
 
+    musica_fundo = pygame.mixer.music.load('sounds/Background Music.mp3')
+    pygame.mixer.music.play(-1)
+
     morcego = Group()
     fundo = Group()
     inimigos = Group()
