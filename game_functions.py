@@ -99,11 +99,11 @@ def check_colisao_inseto(ai_s, bat, insetos, inimigos, play_g, pont, record):
         check_max_pontuacao(play_g, pont, ai_s, record)
 
         
-        if play_g.pontos % 30 == 0:
+        if play_g.pontos % 50 == 0:
             if ai_s.speed_inimigo < 8:
                 ai_s.incremento_velociade()
                 
-        if play_g.pontos % 50 == 0:
+        if play_g.pontos % 150 == 0:
             if ai_s.quant_inimigos < 4:
                 ai_s.incremento_ini_ins()
                 create_inimigos(ai_s, inimigos)
