@@ -14,7 +14,7 @@ class Settings():
         self.incre_ini_ins = 1
 
         #ponto para cada inseto pego
-        self.ponto_inseto = 10
+        self.ponto_inseto = 1
 
         #carrega os sons do jogo
         self.play_select = pygame.mixer.Sound('sounds/select.wav')
